@@ -394,6 +394,10 @@ class DDPG(OffPolicyRLModel):
 
                 self.params = find_trainable_variables("model")
                 self.target_params = find_trainable_variables("target")
+                self.obs_rms_params = [var for var in tf.global_variables()
+                                           if "obs_rms" in var.name]
+                self.ret_rms_params = [var for var in tf.global_variables()
+                                           if "ret_rms" in var.name]
 
                 with self.sess.as_default():
                     self._initialize(self.sess)
@@ -1012,8 +1016,17 @@ class DDPG(OffPolicyRLModel):
 
         params = self.sess.run(self.params)
         target_params = self.sess.run(self.target_params)
+        norm_obs_params = self.sess.run(self.obs_rms_params)
+        norm_ret_params = self.sess.run(self.ret_rms_params)
 
-        self._save_to_file(save_path, data=data, params=params + target_params)
+        params_to_save = params \
+            + target_params \
+            + norm_obs_params \
+            + norm_ret_params
+        self._save_to_file(save_path,
+                           data=data,
+                           params=params_to_save)
+
 
     @classmethod
     def load(cls, load_path, env=None, **kwargs):
@@ -1031,7 +1044,11 @@ class DDPG(OffPolicyRLModel):
         model.setup_model()
 
         restores = []
-        for param, loaded_p in zip(model.params + model.target_params, params):
+        params_to_load = model.params \
+            + model.target_params \
+            + model.obs_rms_params \
+            + model.ret_rms_params
+        for param, loaded_p in zip(params_to_load, params):
             restores.append(param.assign(loaded_p))
         model.sess.run(restores)
 
