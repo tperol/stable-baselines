@@ -5,6 +5,13 @@ Changelog
 
 For download links, please look at `Github release page <https://github.com/hill-a/stable-baselines/releases>`_.
 
+Pre-release 2.4.2a (WIP)
+------------------------
+
+- added suport for Dict spaces in DummyVecEnv and SubprocVecEnv. (@AdamGleave) 
+- fixed bug in saving and loading ddpg model when using normalization of obs or returns (@tperol)
+
+
 Release 2.4.1 (2019-02-11)
 --------------------------
 
@@ -20,7 +27,6 @@ Release 2.4.1 (2019-02-11)
 - remove gym spaces patch for equality functions
 - fixed tensorflow dependency: cpu version was installed overwritting tensorflow-gpu when present.
 - fixed a bug in ``traj_segment_generator`` (used in ppo1 and trpo) where ``new`` was not updated. (spotted by @junhyeokahn)
-- fixed bug in saving and loading ddpg model when using normalization of obs or returns
 
 
 Release 2.4.0 (2019-01-17)
@@ -237,4 +243,4 @@ Contributors (since v2.0.0):
 In random order...
 
 Thanks to @bjmuld @iambenzo @iandanforth @r7vme @brendenpetersen @huvar @abhiskk @JohannesAck
-@EliasHasle @mrakgr @Bleyddyn @antoine-galataud @junhyeokahn @tperol
+@EliasHasle @mrakgr @Bleyddyn @antoine-galataud @junhyeokahn @AdamGleave @tperol
