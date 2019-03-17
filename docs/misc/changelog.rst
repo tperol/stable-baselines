@@ -8,9 +8,10 @@ For download links, please look at `Github release page <https://github.com/hill
 Pre-release 2.4.2a (WIP)
 ------------------------
 
-- added support for Dict spaces in DummyVecEnv and SubprocVecEnv. (@AdamGleave) 
+- added support for Dict spaces in DummyVecEnv and SubprocVecEnv. (@AdamGleave)
 - made SubprocVecEnv thread-safe by default; support arbitrary multiprocessing start methods. (@AdamGleave)
 - fixed bug in saving and loading ddpg model when using normalization of obs or returns (@tperol)
+- changed DDPG default buffer size from 100 to 50000.
 
 
 Release 2.4.1 (2019-02-11)
